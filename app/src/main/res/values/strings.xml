@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">BookGuru</string>
+    <string name="lblQuery">Query Data</string>
+    <string name="msg1">Hello!</string>
+    <string name="msg2">Yes</string>
+    <string name="msg3">No</string>
+    <string name="msg4">Edit the records of</string>
+    <string name="msg5">Records</string>
+    <string name="msg6">Name</string>
+    <string name="progress_detail"/>
+    <item name="btnQuery" type="id" />
+    <item name="edtitemcode" type="id" />
+    <item name="status" type="id" />
+    <item name="textView" type="id" />
+    <item name="textView3" type="id" />
+    <item name="textView2" type="id" />
+    <item name="female" type="id" />
+    <item name="male" type="id" />
+    <item name="coordinatorLayout" type="id" />
+    <item name="ManageRecords" type="id" />
+</resources>
