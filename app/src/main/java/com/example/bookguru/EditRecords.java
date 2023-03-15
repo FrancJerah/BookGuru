@@ -53,13 +53,13 @@ public class EditRecords extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_records);
-        names = (EditText) findViewById(R.id.edtitemcode);
+        names = (EditText) findViewById(R.id.inputBookName);
         btnQuery = (Button) findViewById(R.id.btnQuery);
-        edtitemcode = (EditText) findViewById(R.id.edtitemcode);
+        edtitemcode = (EditText) findViewById(R.id.inputBookName);
         male = (RadioButton) findViewById(R.id.male);
         female = (RadioButton) findViewById(R.id.female);
-        RDgroup = (RadioGroup) findViewById(R.id.RGgender);
-        status = (Spinner) findViewById(R.id.status);
+        RDgroup = (RadioGroup) findViewById(R.id.inputAuthor);
+        status = (Spinner) findViewById(R.id.inputPublisher);
         btnQuery = (Button) findViewById(R.id.btnQuery);
         tv_civ = (TextView) findViewById(R.id.textView3);
 

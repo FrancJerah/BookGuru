@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         CreateNewEmp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent in = new Intent(MainActivity.this, CreateNewCustomer.class);
+                Intent in = new Intent(MainActivity.this, CreateNewRecord.class);
                 startActivity(in);
             }
         });

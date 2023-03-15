@@ -63,7 +63,7 @@ public class ManageRecords extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_records);
         btnQuery = (Button) findViewById(R.id.btnQuery);
-        edtitemcode = (EditText) findViewById(R.id.edtitemcode);
+        edtitemcode = (EditText) findViewById(R.id.inputBookName);
         txtDefault = (TextView) findViewById(R.id.tv_default);
         listView = (ListView) findViewById(R.id.listview);
         textView = (TextView) findViewById(R.id.textView4);

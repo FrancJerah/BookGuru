@@ -19,7 +19,7 @@
         app:layout_constraintVertical_bias="0.03"/>
     
     <EditText
-        android:id="@+id/edtitemcode"
+        android:id="@+id/inputBookName"
         android:layout_width="240dp"
         android:layout_height="45dp"
         android:ems="10"
@@ -46,7 +46,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.073"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edtitemcode"/>
+        app:layout_constraintTop_toBottomOf="@+id/inputBookName"/>
 
     <TextView
         android:id="@+id/tv_default"
