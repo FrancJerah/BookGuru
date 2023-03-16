@@ -1,5 +1,6 @@
 package com.example.bookguru;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
@@ -27,94 +28,106 @@ import java.util.Arrays;
 
 public class ManageRecords extends AppCompatActivity {
     private static Button btnQuery;
-    TextView textView,txtDefault,txtDefault_gender,txtDefault_civilStatus,txtDefault_ID;
-    private static EditText edtitemcode;
+    TextView searchResult, txtDefault, txtDefault_pubDate, txtDefault_book, txtDefault_author, txtDefault_publisher, textDefault_date, txtDefault_ID;
+    private static EditText querySearch;
     private static JSONParser jParser = new JSONParser();
-    private static String urlHost = "http://192.168.254.102/ancuin3/SelectItemDetails.php";
-    private static String urlHostDelete = "http://192.168.254.102/ancuin3/delete.php";
-    private static String urlHostGender = "http://192.168.254.102/ancuin3/selectGender.php";
-    private static String urlHostCivilStatus = "http://192.168.254.102/ancuin3/selectCivilStatus.php";
-    private static String urlHostID = "http://192.168.254.102/ancuin3/selectid.php";
+    private static String urlHost = "http://172.22.26.81/ancuin3/SelectItemDetails.php";
+    private static String urlHostDelete = "http://172.22.26.81/ancuin3/delete.php";
+    private static String urlHostBookTitle = "http://172.22.26.81/ancuin3/selcetBookTitle.php";
+    private static String urlHostAuthor = "http://172.22.26.81/ancuin3/selectAuthor.php";
+    private static String urlHostPublisher = "http://172.22.26.81/ancuin3/selectPublisher.php";
+    private static String urlHostPublishingDate = "http://172.22.26.81/ancuin3/selectPublishingDate.php";
+    private static String urlHostID = "http://172.22.26.81/ancuin3/selectid.php";
     private static String TAG_MESSAGE = "message", TAG_SUCCESS = "success";
     private static String online_dataset = "";
-    private static String cItemcode = "";
+    private static String bItemcode = "";
 
     public static String wew = "";
-    public static String gender = "";
-    public static String civilstats = "";
+    public static String Author = "";
+    public static String Publisher = "";
 
-    private String ems,gen,civ,aydi;
+    private String book, auth, pub, date, aydi;
 
-    String cItemSelected, cItemSelected_gender, cItemSelected_civilStatus, cItemSelected_ID;
-    ArrayAdapter <String> adapter_fnames;
-    ArrayAdapter <String> adapter_gender;
-    ArrayAdapter <String> adapter_civilStatus;
+    String bItemSelected, bItemSelected_author, bItemSelected_publisher, bItemSelected_publishingDate, bItemSelected_ID;
+    ArrayAdapter <String> adapter_book;
+    ArrayAdapter <String> adapter_author;
+    ArrayAdapter <String> adapter_publisher;
+    ArrayAdapter <String> adapter_date;
     ArrayAdapter <String> adapter_ID;
-    ArrayList <String> list_fnames;
-    ArrayList <String> list_gender;
-    ArrayList <String> list_civilStatus;
+    ArrayList <String> list_book;
+    ArrayList <String> list_author;
+    ArrayList <String> list_publisher;
+    ArrayList <String> list_date;
     ArrayList <String> list_ID;
-    AdapterView.OnItemLongClickListener longItemListener_fnames;
+    AdapterView.OnItemLongClickListener longItemListener_book;
     Context context = this;
 
     ListView listView;
+
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_records);
         btnQuery = (Button) findViewById(R.id.btnQuery);
-        edtitemcode = (EditText) findViewById(R.id.inputBookName);
-        txtDefault = (TextView) findViewById(R.id.tv_default);
+        querySearch = (EditText) findViewById(R.id.querySearchBar);
+        txtDefault = (TextView) findViewById(R.id.txt_ID);
         listView = (ListView) findViewById(R.id.listview);
-        textView = (TextView) findViewById(R.id.textView4);
-        txtDefault_gender = (TextView) findViewById(R.id.txt_gender);
-        txtDefault_civilStatus = (TextView) findViewById(R.id.txt_civilStatus);
+        searchResult = (TextView) findViewById(R.id.SearchResult);
+        txtDefault_author = (TextView) findViewById(R.id.txt_author);
+        txtDefault_publisher = (TextView) findViewById(R.id.txt_publisher);
+        txtDefault_book = (TextView) findViewById(R.id.txt_bookname);
         txtDefault_ID = (TextView) findViewById(R.id.txt_ID);
+        txtDefault_pubDate = (TextView) findViewById(R.id.txt_pubDate);
 
         txtDefault.setVisibility(View.GONE);
-        txtDefault_gender.setVisibility(View.GONE);
-        txtDefault_civilStatus.setVisibility(View.GONE);
+        txtDefault_author.setVisibility(View.GONE);
+        txtDefault_publisher.setVisibility(View.GONE);
         txtDefault_ID.setVisibility(View.GONE);
+        txtDefault_book.setVisibility(View.GONE);
+        txtDefault_pubDate.setVisibility(View.GONE);
 
         Toast.makeText(ManageRecords.this,"Nothing Selected", Toast.LENGTH_SHORT).show();
         btnQuery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cItemcode = edtitemcode.getText().toString();
-
+                bItemcode = querySearch.getText().toString();
                 new uploadDataToURL().execute();
-                new Gender().execute();
-                new Civil().execute();
+                new Author().execute();
+                new Publisher().execute();
+                new PubDate().execute();
                 new id().execute();
             }
         });
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
-                cItemSelected = adapter_fnames.getItem(position);
-                cItemSelected_gender = adapter_gender.getItem(position);
-                cItemSelected_civilStatus = adapter_civilStatus.getItem(position);
-                cItemSelected_ID = adapter_ID.getItem(position);
+                bItemSelected = adapter_book.getItem(position);
+                bItemSelected_author = adapter_author.getItem(position);
+                bItemSelected_publisher = adapter_publisher.getItem(position);
+                bItemSelected_ID = adapter_ID.getItem(position);
 
                 AlertDialog.Builder alert_confirm = new AlertDialog.Builder(context);
-                alert_confirm.setMessage("Edit the records of" + " "+ cItemSelected);
+                alert_confirm.setMessage("Edit the records of" + " "+ bItemSelected);
                 alert_confirm.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        txtDefault.setText(cItemSelected);
-                        txtDefault_gender.setText(cItemSelected_gender);
-                        txtDefault_civilStatus.setText(cItemSelected_civilStatus);
-                        txtDefault_ID.setText(cItemSelected_ID);
+                        txtDefault.setText(bItemSelected);
+                        txtDefault_author.setText(bItemSelected_author);
+                        txtDefault_publisher.setText(bItemSelected_publisher);
+                        txtDefault_ID.setText(bItemSelected_ID);
 
-                        ems = txtDefault.getText().toString().trim();
-                        gen = txtDefault_gender.getText().toString().trim();
-                        civ = txtDefault_civilStatus.getText().toString().trim();
+                        book = txtDefault.getText().toString().trim();
+                        auth = txtDefault_author.getText().toString().trim();
+                        pub = txtDefault_publisher.getText().toString().trim();
                         aydi = txtDefault_ID.getText().toString().trim();
+                        date = txtDefault_pubDate.getText().toString().trim();
 
                         Intent intent = new Intent(ManageRecords.this,EditRecords.class);
-                        intent.putExtra(EditRecords.EMAIL,ems);
-                        intent.putExtra(EditRecords.GENDER,gen);
-                        intent.putExtra(EditRecords.CIVIL,civ);
+                        intent.putExtra(EditRecords.BOOK_NAME, book);
+                        intent.putExtra(EditRecords.AUTHOR_NAME, auth);
+                        intent.putExtra(EditRecords.PUBLISHER_NAME, pub);
+                        intent.putExtra(EditRecords.PUBLISHING_DATE, date);
                         intent.putExtra(EditRecords.ID,aydi);
 
                         startActivity(intent);
@@ -133,16 +146,16 @@ public class ManageRecords extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                cItemSelected = adapter_fnames.getItem(position);
-                cItemSelected_gender = adapter_gender.getItem(position);
-                cItemSelected_civilStatus = adapter_civilStatus.getItem(position);
-                cItemSelected_ID = adapter_ID.getItem(position);
+                bItemSelected = adapter_book.getItem(position);
+                bItemSelected_author = adapter_author.getItem(position);
+                bItemSelected_publisher = adapter_publisher.getItem(position);
+                bItemSelected_ID = adapter_ID.getItem(position);
                 AlertDialog.Builder alert_confirm = new AlertDialog.Builder(context);
-                alert_confirm.setMessage("Are you sure you want to delete" + " " + cItemSelected + "?");
+                alert_confirm.setMessage("Are you sure you want to delete" + " " + bItemSelected + "?");
                 alert_confirm.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        txtDefault_ID.setText(cItemSelected_ID);
+                        txtDefault_ID.setText(bItemSelected_ID);
                         aydi = txtDefault_ID.getText().toString().trim();
                         new delete().execute();
                     }
@@ -177,7 +190,7 @@ public class ManageRecords extends AppCompatActivity {
             int nSuccess;
             try{
                 ContentValues cv = new ContentValues();
-                cPostSQL = cItemcode;
+                cPostSQL = bItemcode;
                 cv.put("code",cPostSQL);
 
                 JSONObject json = jParser.makeHTTPRequest(urlHost, "POST", cv);
@@ -211,11 +224,11 @@ public class ManageRecords extends AppCompatActivity {
                 String wew = s;
                 String str = wew;
                 final String fnames[] = str.split("-");
-                list_fnames = new ArrayList<String>(Arrays.asList(fnames));
-                adapter_fnames = new ArrayAdapter<String>(ManageRecords.this, android.R.layout.simple_list_item_1,list_fnames);
+                list_book = new ArrayList<String>(Arrays.asList(fnames));
+                adapter_book = new ArrayAdapter<String>(ManageRecords.this, android.R.layout.simple_list_item_1,list_book);
 
-                listView.setAdapter(adapter_fnames);
-                textView.setText(listView.getAdapter().getCount() + " " + "record(s) found");
+                listView.setAdapter(adapter_book);
+                searchResult.setText(listView.getAdapter().getCount() + " " + "record(s) found");
             } else{
                 alert.setMessage("Query interrupted... \n Please Check Internet Connection");
                 alert.setTitle("Error");
@@ -224,12 +237,12 @@ public class ManageRecords extends AppCompatActivity {
         }
     }
 
-    private class Gender extends AsyncTask<String, String, String> {
+    private class Author extends AsyncTask<String, String, String> {
         String cPost = "", cPostSQL = "", cMessage = "Querying data...";
         int nPostValueIndex;
         ProgressDialog pDialog = new ProgressDialog(ManageRecords.this);
 
-        public Gender(){}
+        public Author(){}
 
         @Override
         protected void onPreExecute(){
@@ -244,10 +257,10 @@ public class ManageRecords extends AppCompatActivity {
             int nSuccess;
             try{
                 ContentValues cv = new ContentValues();
-                cPostSQL = cItemcode;
+                cPostSQL = bItemcode;
                 cv.put("code",cPostSQL);
 
-                JSONObject json = jParser.makeHTTPRequest(urlHostGender, "POST", cv);
+                JSONObject json = jParser.makeHTTPRequest(urlHostAuthor, "POST", cv);
                 if(json != null){
                     nSuccess = json.getInt(TAG_SUCCESS);
                     if(nSuccess == 1){
@@ -273,11 +286,11 @@ public class ManageRecords extends AppCompatActivity {
             android.app.AlertDialog.Builder alert = new android.app.AlertDialog.Builder(ManageRecords.this);
             if(Gender != null){
                 if (isEmpty.equals("") && !Gender.equals("HTTPSERVER_ERROR")){ }
-                String gender = Gender;
-                String str = gender;
-                final String Genders[] = str.split("-");
-                list_gender = new ArrayList<String>(Arrays.asList(Genders));
-                adapter_gender = new ArrayAdapter<String>(ManageRecords.this, android.R.layout.simple_list_item_1,list_gender);
+                String author = Author;
+                String str = author;
+                final String Authors[] = str.split("-");
+                list_author = new ArrayList<String>(Arrays.asList(Authors));
+                adapter_author = new ArrayAdapter<String>(ManageRecords.this, android.R.layout.simple_list_item_1,list_author);
 
             } else{
                 alert.setMessage("Query interrupted... \n Please Check Internet Connection");
@@ -286,12 +299,12 @@ public class ManageRecords extends AppCompatActivity {
             }
         }
     }
-    private class Civil extends AsyncTask<String, String, String> {
+    private class Publisher extends AsyncTask<String, String, String> {
         String cPost = "", cPostSQL = "", cMessage = "Querying data...";
         int nPostValueIndex;
         ProgressDialog pDialog = new ProgressDialog(ManageRecords.this);
 
-        public Civil(){}
+        public Publisher(){}
 
         @Override
         protected void onPreExecute(){
@@ -306,10 +319,10 @@ public class ManageRecords extends AppCompatActivity {
             int nSuccess;
             try{
                 ContentValues cv = new ContentValues();
-                cPostSQL = cItemcode;
+                cPostSQL = bItemcode;
                 cv.put("code",cPostSQL);
 
-                JSONObject json = jParser.makeHTTPRequest(urlHostCivilStatus, "POST", cv);
+                JSONObject json = jParser.makeHTTPRequest(urlHostPublisher, "POST", cv);
                 if(json != null){
                     nSuccess = json.getInt(TAG_SUCCESS);
                     if(nSuccess == 1){
@@ -328,18 +341,18 @@ public class ManageRecords extends AppCompatActivity {
             return null;
         }
         @Override
-        protected void onPostExecute(String CS){
-            super.onPostExecute(CS);
+        protected void onPostExecute(String pub){
+            super.onPostExecute(pub);
             pDialog.dismiss();
             String isEmpty = "";
             android.app.AlertDialog.Builder alert = new android.app.AlertDialog.Builder(ManageRecords.this);
-            if(CS != null){
-                if (isEmpty.equals("") && !CS.equals("HTTPSERVER_ERROR")){ }
-                String CivilStat = CS;
-                String str = CivilStat;
-                final String Civs[] = str.split("-");
-                list_civilStatus = new ArrayList<String>(Arrays.asList(Civs));
-                adapter_civilStatus = new ArrayAdapter<String>(ManageRecords.this, android.R.layout.simple_list_item_1,list_civilStatus);
+            if(pub != null){
+                if (isEmpty.equals("") && !pub.equals("HTTPSERVER_ERROR")){ }
+                String Publisher = pub;
+                String str = Publisher;
+                final String Pubs[] = str.split("-");
+                list_publisher = new ArrayList<String>(Arrays.asList(Pubs));
+                adapter_publisher = new ArrayAdapter<String>(ManageRecords.this, android.R.layout.simple_list_item_1,list_publisher);
 
             } else{
                 alert.setMessage("Query interrupted... \n Please Check Internet Connection");
@@ -348,6 +361,70 @@ public class ManageRecords extends AppCompatActivity {
             }
         }
     }
+
+    private class PubDate extends AsyncTask<String, String, String> {
+        String cPost = "", cPostSQL = "", cMessage = "Querying data...";
+        int nPostValueIndex;
+        ProgressDialog pDialog = new ProgressDialog(ManageRecords.this);
+
+        public PubDate(){}
+
+        @Override
+        protected void onPreExecute(){
+            super.onPreExecute();
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(true);
+            pDialog.setMessage(cMessage);
+            pDialog.show();
+        }
+        @Override
+        protected String doInBackground(String... params){
+            int nSuccess;
+            try{
+                ContentValues cv = new ContentValues();
+                cPostSQL = bItemcode;
+                cv.put("code",cPostSQL);
+
+                JSONObject json = jParser.makeHTTPRequest(urlHostPublishingDate, "POST", cv);
+                if(json != null){
+                    nSuccess = json.getInt(TAG_SUCCESS);
+                    if(nSuccess == 1){
+                        online_dataset = json.getString(TAG_MESSAGE);
+                        return online_dataset;
+                    } else {
+                        return json.getString(TAG_MESSAGE);
+                    }
+                }
+                else{
+                    return "HTTPSERVER_ERROR";
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+        @Override
+        protected void onPostExecute(String pubDate){
+            super.onPostExecute(pubDate);
+            pDialog.dismiss();
+            String isEmpty = "";
+            android.app.AlertDialog.Builder alert = new android.app.AlertDialog.Builder(ManageRecords.this);
+            if(pubDate != null){
+                if (isEmpty.equals("") && !pubDate.equals("HTTPSERVER_ERROR")){ }
+                String Publisher = pubDate;
+                String str = Publisher;
+                final String PubsDate[] = str.split("-");
+                list_date = new ArrayList<String>(Arrays.asList(PubsDate));
+                adapter_date = new ArrayAdapter<String>(ManageRecords.this, android.R.layout.simple_list_item_1,list_publisher);
+
+            } else{
+                alert.setMessage("Query interrupted... \n Please Check Internet Connection");
+                alert.setTitle("Error");
+                alert.show();
+            }
+        }
+    }
+
     private class id extends AsyncTask<String, String, String> {
         String cPost = "", cPostSQL = "", cMessage = "Querying data...";
         int nPostValueIndex;
@@ -368,7 +445,7 @@ public class ManageRecords extends AppCompatActivity {
             int nSuccess;
             try{
                 ContentValues cv = new ContentValues();
-                cPostSQL = cItemcode;
+                cPostSQL = bItemcode;
                 cv.put("code",cPostSQL);
 
                 JSONObject json = jParser.makeHTTPRequest(urlHostID, "POST", cv);
@@ -430,7 +507,7 @@ public class ManageRecords extends AppCompatActivity {
             int nSuccess;
             try{
                 ContentValues cv = new ContentValues();
-                cPostSQL = cItemSelected_ID;
+                cPostSQL = bItemSelected_ID;
                 cv.put("id",cPostSQL);
 
                 JSONObject json = jParser.makeHTTPRequest(urlHostDelete, "POST", cv);

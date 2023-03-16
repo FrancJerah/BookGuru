@@ -22,14 +22,14 @@ public class CreateNewRecord extends AppCompatActivity {
     private static EditText functionPublisherName;
     private static EditText functionPublishingDate;
     private static JSONParser jParser = new JSONParser();
-    private static String urlHost = "http://192.168.254.102/ancuin3/InsertTrans.php";
+    private static String urlHost = "http://172.22.26.81/ancuin3/InsertTrans.php";
     private static String TAG_MESSAGE = "message", TAG_SUCCESS = "success";
     private static String online_dataset = "";
 
-    private static String bookName = "";
-    private static String authorName = "";
-    private static String publisherName = "";
-    private static String publishingDate  = "";
+    private static String BookTitle = "";
+    private static String Author = "";
+    private static String Publisher = "";
+    private static String PublicationDate = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +46,10 @@ public class CreateNewRecord extends AppCompatActivity {
         btnQuery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                bookName = functionBookName.getText().toString();
-                authorName = functionAuthorName.getText().toString();
-                publisherName = functionPublisherName.getText().toString();
-                publishingDate = functionPublishingDate.getText().toString();
+                BookTitle = functionBookName.getText().toString();
+                Author = functionAuthorName.getText().toString();
+                Publisher = functionPublisherName.getText().toString();
+                PublicationDate = functionPublishingDate.getText().toString();
                 new uploadDataToURL().execute();
             }
         });
@@ -74,7 +74,7 @@ public class CreateNewRecord extends AppCompatActivity {
             int nSuccess;
             try{
                 ContentValues cv = new ContentValues();
-                cPOSTSQL = "'"+ bookName +"','" + authorName + "','" + publisherName + "','" + publishingDate + "'";
+                cPOSTSQL = "'"+ BookTitle +"','" + Author + "','" + Publisher + "','" + PublicationDate + "'";
                 cv.put("code", cPOSTSQL);
 
                 JSONObject json = jParser.makeHTTPRequest(urlHost, "POST", cv);

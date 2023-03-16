@@ -3,17 +3,12 @@ package com.example.bookguru;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,110 +19,53 @@ import org.json.JSONObject;
 
 public class EditRecords extends AppCompatActivity {
     private static Button btnQuery;
-    private static EditText edtitemcode,names;
+    private static EditText editBookName, editAuthorName, editPublisherName, editPublishingDate;
     private static TextView tv_civ;
     private static String cItemcode = "";
     private static JSONParser jParser = new JSONParser();
-    private static String urlHost = "http://192.168.254.102/ancuin3/UpdateQty.php";
+    private static String urlHost = "http://172.22.26.81/ancuin3/UpdateQty.php";
     private static String TAG_MESSAGE = "message", TAG_SUCCESS = "success";
     private static String online_dataset = "";
-    String[] StringStatus = new String[] {"Single","Married","Widow","Divorced"};
-    public static final String EMAIL = "EMAIL";
-    public static final String GENDER = "GENDER";
-    public static final String CIVIL = "CIVIL";
+    public static final String BOOK_NAME = "BOOK NAME";
+    public static final String AUTHOR_NAME = "AUTHOR";
+    public static final String PUBLISHER_NAME = "PUBLISHER";
+    public static final String PUBLISHING_DATE = "PUBLISHING DATE";
     public static final String ID = "ID";
-    private String ems,gen,civ,aydi;
+    private String book_title, author_name, publisher_name, publishing_date, aydi;
 
-    public static String fullname = "";
-    public static String Gender = "";
-    public static String StatusofUser = "";
-
-    RadioButton male,female;
-    RadioGroup RDgroup;
-    View.OnClickListener MaleandFemale;
-
-    Spinner status;
+    public static String BookTitle = "";
+    public static String Author = "";
+    public static String Publisher = "";
+    public static String PublicationDate = "";
 
     ArrayAdapter<String> adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_records);
-        names = (EditText) findViewById(R.id.inputBookName);
+        editBookName = (EditText) findViewById(R.id.inputBookName);
+        editAuthorName = (EditText) findViewById(R.id.inputAuthorName);
+        editPublisherName = (EditText) findViewById(R.id.inputAuthorName);
+        editPublishingDate = (EditText) findViewById(R.id.inputPublishingDate);
         btnQuery = (Button) findViewById(R.id.btnQuery);
-        edtitemcode = (EditText) findViewById(R.id.inputBookName);
-        male = (RadioButton) findViewById(R.id.male);
-        female = (RadioButton) findViewById(R.id.female);
-        RDgroup = (RadioGroup) findViewById(R.id.inputAuthor);
-        status = (Spinner) findViewById(R.id.inputPublisher);
-        btnQuery = (Button) findViewById(R.id.btnQuery);
-        tv_civ = (TextView) findViewById(R.id.textView3);
 
-        Intent i = getIntent();
-        ems = i.getStringExtra(EMAIL);
-        gen = i.getStringExtra(GENDER);
-        civ = i.getStringExtra(CIVIL);
-        aydi = i.getStringExtra(ID);
-        names.setText(ems);
+
+//        Intent i = getIntent();
+//        BookTitle = i.getStringExtra(BOOK_NAME);
+//        author_name = i.getStringExtra(AUTHOR_NAME);
+//        publisher_name = i.getStringExtra(PUBLISHER_NAME);
+//        publishing_date = i.getStringExtra(PUBLISHING_DATE);
+//        aydi = i.getStringExtra(ID);
+//        editBookName.setText(book_name);
 
         btnQuery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fullname = edtitemcode.getText().toString();
+                book_title = editBookName.getText().toString();
+                author_name = editAuthorName.getText().toString();
+                publisher_name = editPublisherName.getText().toString();
+                publishing_date = editPublishingDate.getText().toString();
                 new uploadDataToURL().execute();
-            }
-        });
-        if("Male".equals(gen)){
-            RDgroup.check(R.id.male);
-        }
-        else{
-            RDgroup.check(R.id.female);
-        }
-        MaleandFemale = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                RadioButton rdoList = (RadioButton) view;
-                switch (rdoList.getId()){
-                    case R.id.male:
-                        Gender = "Male";
-                        break;
-                    case R.id.female:
-                        Gender = "Female";
-                        break;
-                }
-            }
-        };
-        male.setOnClickListener(MaleandFemale);
-        female.setOnClickListener(MaleandFemale);
-
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,StringStatus);
-        status.setAdapter(adapter);
-
-        status.setSelection(adapter.getPosition(civ));
-        status.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int stats, long l) {
-                String text = adapterView.getItemAtPosition(stats).toString().trim();
-                Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
-
-                switch (stats){
-                    case 0:
-                        StatusofUser = "Single";
-                        break;
-                    case 1:
-                        StatusofUser = "Married";
-                        break;
-                    case 2:
-                        StatusofUser = "Widow";
-                        break;
-                    case 3:
-                        StatusofUser = "Divorced";
-                        break;
-                }
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
             }
         });
     }
@@ -152,17 +90,21 @@ public class EditRecords extends AppCompatActivity {
             int nSuccess;
             try{
                 ContentValues cv = new ContentValues();
+
                 cPostSQL = aydi;
                 cv.put("id",cPostSQL);
 
-                cPostSQL = " '" + fullname + "' ";
-                cv.put("fname",cPostSQL);
+                cPostSQL = " '" + book_title + "' ";
+                cv.put("book_title",cPostSQL);
 
-                cPostSQL = " '" + Gender + "' ";
-                cv.put("gen",cPostSQL);
+                cPostSQL = " '" + author_name + "' ";
+                cv.put("author_name",cPostSQL);
 
-                cPostSQL = " '" + StatusofUser + "' ";
-                cv.put("civstats",cPostSQL);
+                cPostSQL = " '" + publisher_name + "' ";
+                cv.put("publisher_name",cPostSQL);
+
+                cPostSQL = " '" + publishing_date + "' ";
+                cv.put("publication_date",cPostSQL);
 
                 JSONObject json = jParser.makeHTTPRequest(urlHost, "POST", cv);
                 if(json != null){

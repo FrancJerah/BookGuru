@@ -2,7 +2,7 @@
 $username = "root";
 $password = "";
 $host = "localhost";
-$dbname = "ancuin_db";
+$dbname = "booktbl_db";
 $connect = @mysqli_connect($host, $username, $password) or die("Unable to connect to host.");
 $db = @mysqli_select_db($connect, $dbname) or die("Unable to connect to students database");
 

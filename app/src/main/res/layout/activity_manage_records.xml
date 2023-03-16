@@ -5,79 +5,112 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ManageRecords">
-    
+
     <Button
         android:id="@+id/btnQuery"
         android:layout_width="98dp"
         android:layout_height="55dp"
+        android:layout_marginStart="287dp"
+        android:layout_marginLeft="287dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginRight="26dp"
         android:text="search"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.996"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.03"/>
-    
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
-        android:id="@+id/inputBookName"
+        android:id="@+id/querySearchBar"
         android:layout_width="240dp"
         android:layout_height="45dp"
+        android:layout_marginTop="24dp"
         android:ems="10"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.148"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
-    
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ListView
         android:id="@+id/listview"
         android:layout_width="340dp"
-        android:layout_height="613dp"
+        android:layout_height="480dp"
         android:layout_marginTop="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"/>
-    
+        app:layout_constraintTop_toBottomOf="@+id/SearchResult" />
+
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/SearchResult"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="Search Result(s)"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.073"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/inputBookName"/>
+        app:layout_constraintTop_toBottomOf="@+id/querySearchBar" />
 
     <TextView
-        android:id="@+id/tv_default"
+        android:id="@+id/txt_pubDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        app:layout_editor_absoluteX="261dp"
-        app:layout_editor_absoluteY="2dp"/>
-    
-    <TextView
-        android:id="@+id/txt_gender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_editor_absoluteX="194dp"
-        app:layout_editor_absoluteY="2dp"/>
+        app:layout_constraintBottom_toBottomOf="@+id/listview"
+        app:layout_constraintEnd_toEndOf="@+id/listview"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="@+id/listview"
+        app:layout_constraintTop_toBottomOf="@+id/txt_publisher"
+        app:layout_constraintVertical_bias="0.120000005" />
 
     <TextView
-        android:id="@+id/txt_civilStatus"
+        android:id="@+id/txt_bookname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        app:layout_editor_absoluteX="124dp"
-        app:layout_editor_absoluteY="2dp"/>
+        app:layout_constraintBottom_toBottomOf="@+id/listview"
+        app:layout_constraintEnd_toEndOf="@+id/listview"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="@+id/listview"
+        app:layout_constraintTop_toBottomOf="@+id/txt_publisher"
+        app:layout_constraintVertical_bias="0.04000002" />
+
+    <TextView
+        android:id="@+id/txt_publisher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/listview"
+        app:layout_constraintEnd_toEndOf="@+id/listview"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="@+id/listview"
+        app:layout_constraintTop_toBottomOf="@+id/txt_author"
+        app:layout_constraintVertical_bias="0.029999971" />
+
+    <TextView
+        android:id="@+id/txt_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="@+id/listview"
+        app:layout_constraintEnd_toEndOf="@+id/listview"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="@+id/listview"
+        app:layout_constraintTop_toBottomOf="@+id/txt_ID"
+        app:layout_constraintVertical_bias="0.029999971"
+        tools:layout_editor_absoluteuY="2dp" />
 
     <TextView
         android:id="@+id/txt_ID"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView"
-        app:layout_editor_absoluteX="53dp"
-        app:layout_editor_absoluteY="2dp"/>
-
+        app:layout_constraintBottom_toBottomOf="@+id/listview"
+        app:layout_constraintEnd_toEndOf="@+id/listview"
+        app:layout_constraintHorizontal_bias="0.05"
+        app:layout_constraintStart_toStartOf="@+id/listview"
+        app:layout_constraintTop_toTopOf="@+id/listview"
+        app:layout_constraintVertical_bias="0.04000002" />
 </androidx.constraintlayout.widget.ConstraintLayout>

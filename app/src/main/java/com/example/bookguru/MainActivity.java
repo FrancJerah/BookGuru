@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        CreateNewEmp = (Button) findViewById(R.id.CreateNewEmp);
+        CreateNewEmp = (Button) findViewById(R.id.CreateNewBookRecord);
         ManageRecords = (Button) findViewById(R.id.ManageRecords);
 
         CreateNewEmp.setOnClickListener(new View.OnClickListener() {
@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent in = new Intent(MainActivity.this, ManageRecords.class);
+                startActivity(in);
             }
         });
     }

@@ -5,7 +5,7 @@ try {
     $dbrecords = mysqli_query($connect,$sql);
 } catch (Exception $e) {
     $response["success"] = 0;
-    $response["message"] = "Database Error#1. Please Try Again!";
+    $response["message"] = "Database Error#Delete. Please Try Again!";
     die(json_encode($response));
 }
     $response["success"] = 0;

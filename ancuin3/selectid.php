@@ -1,13 +1,13 @@
 <?php
     require("config.php");
     $code = $_REQUEST['code'];
-    $sql = "SELECT ID FROM custtbl WHERE Fullname LIKE '%$code%'";
+    $sql = "SELECT ID FROM booktbl WHERE BookTitle LIKE '%$code%'";
 
     try {
         $dbrecords = mysqli_query($connect,$sql);
     } catch (Exception $e) {
         $response["success"] = 0;
-        $response["message"] = "Database Error#1. Please Try Again!";
+        $response["message"] = "Database Error#ID. Please Try Again!";
         die(json_encode($response));
     }
         if(mysqli_num_rows($dbrecords) >=1){
