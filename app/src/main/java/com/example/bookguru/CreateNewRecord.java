@@ -22,7 +22,7 @@ public class CreateNewRecord extends AppCompatActivity {
     private static EditText functionPublisherName;
     private static EditText functionPublishingDate;
     private static JSONParser jParser = new JSONParser();
-    private static String urlHost = "http://172.22.26.81/ancuin3/InsertTrans.php";
+    private static String urlHost = "http://192.168.43.153/ancuin3/InsertTrans.php";
     private static String TAG_MESSAGE = "message", TAG_SUCCESS = "success";
     private static String online_dataset = "";
 
@@ -34,7 +34,7 @@ public class CreateNewRecord extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_create_new_customer);
+        setContentView(R.layout.activity_create_new_record);
 
         btnQuery = (Button) findViewById(R.id.btnQuery);
         functionBookName = (EditText) findViewById(R.id.inputBookName);

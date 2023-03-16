@@ -3,6 +3,7 @@ package com.example.bookguru;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -23,7 +24,7 @@ public class EditRecords extends AppCompatActivity {
     private static TextView tv_civ;
     private static String cItemcode = "";
     private static JSONParser jParser = new JSONParser();
-    private static String urlHost = "http://172.22.26.81/ancuin3/UpdateQty.php";
+    private static String urlHost = "http://192.168.43.153/ancuin3/UpdateQty.php";
     private static String TAG_MESSAGE = "message", TAG_SUCCESS = "success";
     private static String online_dataset = "";
     public static final String BOOK_NAME = "BOOK NAME";
@@ -50,13 +51,13 @@ public class EditRecords extends AppCompatActivity {
         btnQuery = (Button) findViewById(R.id.btnQuery);
 
 
-//        Intent i = getIntent();
-//        BookTitle = i.getStringExtra(BOOK_NAME);
-//        author_name = i.getStringExtra(AUTHOR_NAME);
-//        publisher_name = i.getStringExtra(PUBLISHER_NAME);
-//        publishing_date = i.getStringExtra(PUBLISHING_DATE);
-//        aydi = i.getStringExtra(ID);
-//        editBookName.setText(book_name);
+        Intent i = getIntent();
+        BookTitle = i.getStringExtra(BOOK_NAME);
+        author_name = i.getStringExtra(AUTHOR_NAME);
+        publisher_name = i.getStringExtra(PUBLISHER_NAME);
+        publishing_date = i.getStringExtra(PUBLISHING_DATE);
+        aydi = i.getStringExtra(ID);
+        editBookName.setText(book_title);
 
         btnQuery.setOnClickListener(new View.OnClickListener() {
             @Override

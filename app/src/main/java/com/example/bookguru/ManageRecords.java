@@ -31,13 +31,13 @@ public class ManageRecords extends AppCompatActivity {
     TextView searchResult, txtDefault, txtDefault_pubDate, txtDefault_book, txtDefault_author, txtDefault_publisher, textDefault_date, txtDefault_ID;
     private static EditText querySearch;
     private static JSONParser jParser = new JSONParser();
-    private static String urlHost = "http://172.22.26.81/ancuin3/SelectItemDetails.php";
-    private static String urlHostDelete = "http://172.22.26.81/ancuin3/delete.php";
-    private static String urlHostBookTitle = "http://172.22.26.81/ancuin3/selcetBookTitle.php";
-    private static String urlHostAuthor = "http://172.22.26.81/ancuin3/selectAuthor.php";
-    private static String urlHostPublisher = "http://172.22.26.81/ancuin3/selectPublisher.php";
-    private static String urlHostPublishingDate = "http://172.22.26.81/ancuin3/selectPublishingDate.php";
-    private static String urlHostID = "http://172.22.26.81/ancuin3/selectid.php";
+    private static String urlHost = "http://192.168.43.153/ancuin3/SelectItemDetails.php";
+    private static String urlHostDelete = "http://192.168.43.153/ancuin3/delete.php";
+    private static String urlHostBookTitle = "http://192.168.43.153/ancuin3/selcetBookTitle.php";
+    private static String urlHostAuthor = "http://192.168.43.153/ancuin3/selectAuthor.php";
+    private static String urlHostPublisher = "http://192.168.43.153/ancuin3/selectPublisher.php";
+    private static String urlHostPublishingDate = "http://192.168.43.153/ancuin3/selectPublishingDate.php";
+    private static String urlHostID = "http://192.168.43.153/ancuin3/selectid.php";
     private static String TAG_MESSAGE = "message", TAG_SUCCESS = "success";
     private static String online_dataset = "";
     private static String bItemcode = "";
@@ -105,6 +105,7 @@ public class ManageRecords extends AppCompatActivity {
                 bItemSelected = adapter_book.getItem(position);
                 bItemSelected_author = adapter_author.getItem(position);
                 bItemSelected_publisher = adapter_publisher.getItem(position);
+                bItemSelected_publishingDate = adapter_date.getItem(position);
                 bItemSelected_ID = adapter_ID.getItem(position);
 
                 AlertDialog.Builder alert_confirm = new AlertDialog.Builder(context);
@@ -150,6 +151,7 @@ public class ManageRecords extends AppCompatActivity {
                 bItemSelected_author = adapter_author.getItem(position);
                 bItemSelected_publisher = adapter_publisher.getItem(position);
                 bItemSelected_ID = adapter_ID.getItem(position);
+                bItemSelected_publishingDate = adapter_date.getItem(position);
                 AlertDialog.Builder alert_confirm = new AlertDialog.Builder(context);
                 alert_confirm.setMessage("Are you sure you want to delete" + " " + bItemSelected + "?");
                 alert_confirm.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
