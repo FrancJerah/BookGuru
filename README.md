@@ -11,10 +11,10 @@ Book Information includes the following:
 
 ## Screenshots
 ![image](https://user-images.githubusercontent.com/108663786/225510075-74c3a3f6-836f-4496-a380-8bacc7ca5d1b.png)
-![image](https://user-images.githubusercontent.com/108663786/225510164-3354fdb4-b3f7-4039-94f1-b39665b1dbaf.png)
-
-
-
+![bookguru_main](https://user-images.githubusercontent.com/108663786/225510287-bf36f255-dc35-46ad-a5ba-944a958a9034.png)
+![bookguru_edit](https://user-images.githubusercontent.com/108663786/225510404-6d2fe9b6-b532-498b-b660-e7630d934f3d.png)
+![bookguru_search](https://user-images.githubusercontent.com/108663786/225510481-ff5e55cd-f07a-4a95-b0f0-da5da2412176.png)
+![bookguru_delete](https://user-images.githubusercontent.com/108663786/225510594-e35c3d55-6f19-4b0b-960c-e06d4092f14c.png)
 
 ## Known Bugs
 - App force closes when user clicks search item other than the first item
