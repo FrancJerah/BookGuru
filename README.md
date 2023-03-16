@@ -10,10 +10,10 @@ Book Information includes the following:
 4. Date of publication
 
 ## Screenshots
-![image](https://user-images.githubusercontent.com/108663786/225509579-4fabb81c-7590-4399-b6e1-354494ae8d2f.png)
-![image](https://user-images.githubusercontent.com/108663786/225509671-284fc669-82b9-4aec-80f1-d0784a5d5bb1.png)
-![image](https://user-images.githubusercontent.com/108663786/225509738-c3e13000-5d96-4333-9925-1c629e22d338.png)
-![image](https://user-images.githubusercontent.com/108663786/225509813-625bcaf1-a793-4d97-bd8e-aced52cd1538.png)
+![image](https://user-images.githubusercontent.com/108663786/225510075-74c3a3f6-836f-4496-a380-8bacc7ca5d1b.png)
+![image](https://user-images.githubusercontent.com/108663786/225510164-3354fdb4-b3f7-4039-94f1-b39665b1dbaf.png)
+
+
 
 
 ## Known Bugs
