@@ -1,7 +1,7 @@
 <?php
 require("config.php");
-$sql = "INSERT INTO booktbl (BookTitle, Author, Publisher, PublicationDate)VALUES(".$_REQUEST["code"].")";
-$select_sql = "SELECT * FROM booktbl";
+$sql = "INSERT INTO `booktbl` (BookTitle, Author, Publisher, PublicationDate)VALUES(".$_REQUEST["code"].")";
+$select_sql = "SELECT * FROM `booktbl`";
 $sql = str_replace("\\", "", $sql);
 $select_sql = str_replace("\\", "", $select_sql);
 

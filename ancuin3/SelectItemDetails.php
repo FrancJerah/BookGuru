@@ -1,7 +1,7 @@
 <?php
     require("config.php");
     $code = $_REQUEST['code'];
-    $sql = "SELECT * FROM booktbl WHERE BookTitle LIKE '%$code%'";
+    $sql = "SELECT BookTitle FROM booktbl WHERE BookTitle LIKE '%$code%'";
 
     try {
         $dbrecords = mysqli_query($connect,$sql);
